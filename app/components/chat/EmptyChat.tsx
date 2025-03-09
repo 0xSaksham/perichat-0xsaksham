@@ -1,4 +1,4 @@
-const EmptyState = () => {
+const EmptyChat = () => {
   return (
     <div className="h-screen px-4 py-10 sm:px-6 lg:px-8 flex justify-center items-center bg-gray-100">
       <div className="text-center items-center flex flex-col">
@@ -10,4 +10,4 @@ const EmptyState = () => {
   );
 };
 
-export default EmptyState;
+export default EmptyChat;

@@ -1,21 +1,25 @@
-import { Geist } from "next/font/google";
-import { ThemeProvider } from "next-themes";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
-
-export const metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "Perichat",
-  description: "Take your business off whatsapp",
-};
+import Sidebar from "@/app/components/sidebar/Sidebar";
+import Navbar from "@/app/components/Navbar";
+import { AuthProvider } from "@/app/utils/AuthProvider";
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 const geistSans = Geist({
-  display: "swap",
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Periskope",
+  description: "Periskope",
+};
 
 export default function RootLayout({
   children,
@@ -23,16 +27,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={geistSans.className} suppressHydrationWarning>
-      <body className="bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <AuthProvider>
+          <ProtectedRoute>
+            <div className="flex h-screen">
+              <Sidebar  />
+
+              <div className="flex flex-col flex-1 overflow-hidden">
+                <Navbar />
+                <div className="flex-1 overflow-auto bg-white">{children}</div>
+              </div>
+            </div>
+          </ProtectedRoute>
+        </AuthProvider>
       </body>
     </html>
   );
