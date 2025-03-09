@@ -44,13 +44,40 @@ export const signInAction = async (formData: FormData) => {
   const password = formData.get("password") as string;
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) {
     return encodedRedirect("error", "/sign-in", error.message);
+  }
+
+  // Check if user exists in database
+  if (user) {
+    const { data: existingUser, error: fetchError } = await supabase
+      .from("users")
+      .select()
+      .eq("id", user.id)
+      .single();
+
+    if (!existingUser && !fetchError) {
+      // Insert new user
+      const { error: insertError } = await supabase.from("users").insert([
+        {
+          id: user.id,
+          email: user.email,
+          created_at: new Date().toISOString(),
+        },
+      ]);
+
+      if (insertError) {
+        console.error("Error creating user:", insertError);
+      }
+    }
   }
 
   return redirect("/users");

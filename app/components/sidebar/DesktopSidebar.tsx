@@ -3,6 +3,8 @@
 import useRoutes from "@/app/hooks/useRoutes";
 import DesktopItem from "./DesktopItem";
 import { User } from "@supabase/supabase-js";
+import { useState } from "react";
+import Avatar from "../Avatar";
 
 interface DesktopSidebarProps {
   currentUser: User | null;
@@ -10,6 +12,7 @@ interface DesktopSidebarProps {
 
 const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
   const routes = useRoutes();
+  const [isOpen, setIsOpen] = useState(false);
 
   // console.log(currentUser);
 
@@ -51,6 +54,14 @@ const DesktopSidebar: React.FC<DesktopSidebarProps> = ({ currentUser }) => {
           onClick={() => {}}
           className="cursor-pointer hover:opacity-75 transition"
         ></div>
+      </nav>
+      <nav className="mt-4 flex flex-col justify-between items-center">
+        <div
+          className="cursor-pointer hover:opacity-75 transition"
+          onClick={() => setIsOpen(true)}
+        >
+          <Avatar user={currentUser} />
+        </div>
       </nav>
     </div>
   );

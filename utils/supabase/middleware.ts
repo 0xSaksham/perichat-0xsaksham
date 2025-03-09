@@ -39,6 +39,30 @@ export const updateSession = async (request: NextRequest) => {
     // https://supabase.com/docs/guides/auth/server-side/nextjs
     const user = await supabase.auth.getUser();
 
+    // Add user to database if authenticated
+    if (user.data?.user && !user.error) {
+      const { data: existingUser, error: fetchError } = await supabase
+        .from("users")
+        .select()
+        .eq("id", user.data.user.id)
+        .single();
+
+      if (!existingUser && !fetchError) {
+        // Insert new user
+        const { error: insertError } = await supabase.from("users").insert([
+          {
+            id: user.data.user.id,
+            email: user.data.user.email,
+            created_at: new Date().toISOString(),
+          },
+        ]);
+
+        if (insertError) {
+          console.error("Error creating user:", insertError);
+        }
+      }
+    }
+
     // protected routes
     if (request.nextUrl.pathname.startsWith("/users") && user.error) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
