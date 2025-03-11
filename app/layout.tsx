@@ -31,18 +31,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthProvider>
-          <ProtectedRoute>
-            <div className="flex h-screen">
-              <Sidebar />
-
-              <div className="flex flex-col flex-1 overflow-hidden">
-                <Navbar />
-                <div className="flex-1 overflow-auto bg-white">{children}</div>
-              </div>
-            </div>
-          </ProtectedRoute>
-        </AuthProvider>
+        <div className="flex h-screen">
+          <div className="flex flex-col flex-1 overflow-hidden">
+            <div className="flex-1 overflow-auto bg-white">{children}</div>
+          </div>
+        </div>
       </body>
     </html>
   );
