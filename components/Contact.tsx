@@ -24,6 +24,7 @@ interface ContactItemProps {
   isMuted?: boolean;
   userSentState?: UserSentState;
   isActive?: boolean;
+  onClick?: () => void;
 }
 
 export const ContactItem: React.FC<ContactItemProps> = ({
@@ -31,26 +32,32 @@ export const ContactItem: React.FC<ContactItemProps> = ({
   latestMessage,
   phone,
   unreadCount,
-  tags = ["Demo", "Dont Send"],
+  tags = ["Real User", "Send Message"],
   date,
   avatar,
   isMuted = false,
   userSentState,
   isActive = false,
+  onClick,
 }) => {
   return (
-    <div className={`flex items-center justify-between ${isActive ? 'bg-gray-100' : 'bg-white'} hover:bg-gray-100 rounded-sm transition-all duration-200 ease-in-out`}>
+    <div
+      className={`flex items-center justify-between ${
+        isActive ? "bg-gray-100" : "bg-white"
+      } hover:bg-gray-100 rounded-sm transition-all duration-200 ease-in-out cursor-pointer`}
+      onClick={onClick}
+    >
       {/* Left Section - Profile Icon and Contact Info */}
       <div className="flex items-center space-x-2 p-2">
         {/* Profile Picture */}
         <div className="relative transform -translate-y-1.5 h-10 w-10 rounded-full flex items-center justify-center bg-gray-200 hover:shadow-md transition-shadow duration-200 ease-in-out">
           {avatar ? (
-            <Image 
-              src={avatar} 
-              alt="Avatar" 
+            <Image
+              src={avatar}
+              alt="Avatar"
               width={40}
               height={40}
-              className="rounded-full hover:opacity-90 transition-opacity duration-200" 
+              className="rounded-full hover:opacity-90 transition-opacity duration-200"
             />
           ) : (
             <IoPersonSharp className="text-white h-4 w-4 text-sm" />
@@ -96,12 +103,12 @@ export const ContactItem: React.FC<ContactItemProps> = ({
                 tag === "Demo"
                   ? "bg-orange-50 text-stone-400 hover:bg-orange-100"
                   : tag === "internal"
-                    ? "bg-green-100 text-green-700 hover:bg-green-200"
-                    : tag === "Signup"
-                      ? "bg-green-100 text-green-700 hover:bg-green-200"
-                      : tag === "Dont Send"
-                        ? "bg-red-50 text-red-500 hover:bg-red-100"
-                        : "bg-gray-100 text-brown-400 hover:bg-gray-200"
+                  ? "bg-green-100 text-green-700 hover:bg-green-200"
+                  : tag === "Signup"
+                  ? "bg-green-100 text-green-700 hover:bg-green-200"
+                  : tag === "Dont Send"
+                  ? "bg-red-50 text-red-500 hover:bg-red-100"
+                  : "bg-gray-100 text-brown-400 hover:bg-gray-200"
               }`}
             >
               {tag}
@@ -122,9 +129,7 @@ export const ContactItem: React.FC<ContactItemProps> = ({
         </div>
 
         {/* Date */}
-        <span className="text-xs text-gray-400 absolute bottom-0">
-          {date}
-        </span>
+        <span className="text-xs text-gray-400 absolute bottom-0">{date}</span>
       </div>
     </div>
   );

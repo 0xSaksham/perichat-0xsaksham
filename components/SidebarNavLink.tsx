@@ -26,7 +26,7 @@ const SidebarNavLink: React.FC<SidebarNavLinkProps> = ({
   const isActive = pathname === href;
 
   const handleClick = (e: React.MouseEvent) => {
-    if (!isImplemented && href !== "/chats") {
+    if (!isImplemented && href !== "/chats" && href !== "/contacts") {
       e.preventDefault();
       setShowTooltip(true);
       setTimeout(() => {
@@ -38,7 +38,11 @@ const SidebarNavLink: React.FC<SidebarNavLinkProps> = ({
   return (
     <div className="relative" onMouseLeave={() => setShowTooltip(false)}>
       <Link
-        href={isImplemented || href === "/chats" ? href : "#"}
+        href={
+          isImplemented || href === "/chats" || href === "/contacts"
+            ? href
+            : "#"
+        }
         onClick={handleClick}
       >
         <div

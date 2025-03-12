@@ -13,7 +13,7 @@ export const SigninForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  
+
   const supabase = createBrowserSupabaseClient();
 
   const handleSignIn = async (e: React.FormEvent) => {
@@ -35,7 +35,7 @@ export const SigninForm = () => {
 
       if (error) throw error;
 
-      router.push("/");
+      router.push("/chats");
       router.refresh();
     } catch (error: any) {
       setError(error.message || "An error occurred during sign in");
@@ -50,19 +50,29 @@ export const SigninForm = () => {
         <div className="flex justify-center mb-4">
           <PeriskopeIcon className="h-16 sm:h-20 w-16 sm:w-20" />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-green-700">Welcome Back</h1>
-        <p className="mt-2 text-sm sm:text-base text-gray-600">Sign in to your Periskope account</p>
+        <h1 className="text-2xl sm:text-3xl font-bold text-green-700">
+          Welcome Back
+        </h1>
+        <p className="mt-2 text-sm sm:text-base text-gray-600">
+          Sign in to your Periskope account
+        </p>
       </div>
-      
+
       {error && (
         <div className="p-3 bg-red-50 text-red-600 rounded-md text-sm">
           {error}
         </div>
       )}
-      
-      <form className="mt-6 sm:mt-8 space-y-4 sm:space-y-6" onSubmit={handleSignIn}>
+
+      <form
+        className="mt-6 sm:mt-8 space-y-4 sm:space-y-6"
+        onSubmit={handleSignIn}
+      >
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
             Email address
           </label>
           <input
@@ -76,13 +86,19 @@ export const SigninForm = () => {
             autoComplete="email"
           />
         </div>
-        
+
         <div>
           <div className="flex items-center justify-between">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
-            <Link href="/auth/forgot-password" className="text-xs font-medium text-green-600 hover:text-green-500">
+            <Link
+              href="/auth/forgot-password"
+              className="text-xs font-medium text-green-600 hover:text-green-500"
+            >
               Forgot password?
             </Link>
           </div>
@@ -97,7 +113,7 @@ export const SigninForm = () => {
             autoComplete="current-password"
           />
         </div>
-        
+
         <div className="flex items-center">
           <input
             id="remember-me"
@@ -105,11 +121,14 @@ export const SigninForm = () => {
             type="checkbox"
             className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
           />
-          <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+          <label
+            htmlFor="remember-me"
+            className="ml-2 block text-sm text-gray-700"
+          >
             Remember me
           </label>
         </div>
-        
+
         <div>
           <button
             type="submit"
@@ -120,15 +139,18 @@ export const SigninForm = () => {
           </button>
         </div>
       </form>
-      
+
       <div className="text-center mt-4">
         <p className="text-sm text-gray-600">
           Don't have an account?{" "}
-          <Link href="/auth/signup" className="font-medium text-green-600 hover:text-green-500">
+          <Link
+            href="/auth/signup"
+            className="font-medium text-green-600 hover:text-green-500"
+          >
             Sign up
           </Link>
         </p>
       </div>
     </div>
   );
-}; 
+};

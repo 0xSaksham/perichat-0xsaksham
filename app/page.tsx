@@ -112,7 +112,7 @@ export default function Home() {
               className="px-6 py-3 rounded-lg bg-green-600 hover:bg-green-700 transition font-medium"
               asChild
             >
-              <Link href="/a/signup">Sign Up for Free</Link>
+              <Link href="/auth/signup">Sign Up for Free</Link>
             </Button>
           </div>
         </div>

@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Periskope",
-  description: "Periskope",
+  title: "Perichat",
+  description: "",
 };
 
 export default function RootLayout({
