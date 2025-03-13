@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createBrowserSupabaseClient } from "@/utils/supabase-client";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function ConfirmPage() {
   const router = useRouter();
@@ -64,22 +65,25 @@ export default function ConfirmPage() {
   }, [router, searchParams]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center text-gray-900">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground px-4">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
+      <div className="w-full max-w-md p-8 space-y-6 bg-card text-card-foreground rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold text-center">
           {success ? "Email Confirmed!" : "Confirming your email"}
         </h1>
         {error ? (
-          <div className="p-3 text-sm text-red-600 bg-red-50 rounded-md">
+          <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">
             {error}
           </div>
         ) : success ? (
-          <div className="p-3 text-sm text-green-600 bg-green-50 rounded-md">
+          <div className="p-3 text-sm text-green-600 bg-green-600/10 rounded-md">
             {success}
           </div>
         ) : (
           <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         )}
       </div>

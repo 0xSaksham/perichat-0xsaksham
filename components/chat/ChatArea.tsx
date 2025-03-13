@@ -32,28 +32,28 @@ export const ChatArea = ({
   userAvatar,
   userPhone,
   messagesEndRef,
-  onMessagesViewed
+  onMessagesViewed,
 }: ChatAreaProps) => {
   const [isAtBottom, setIsAtBottom] = useState(true);
-  
+
   // Function to scroll to the bottom of the chat
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  
+
   // Track when user scrolls away from the bottom
   const handleScrollChange = (atBottom: boolean) => {
     setIsAtBottom(atBottom);
   };
-  
+
   return (
-    <main className="flex-1 flex flex-col h-full overflow-hidden">
+    <main className="flex-1 flex flex-col h-full overflow-hidden bg-dark-800">
       <ChatHeader selectedContact={selectedContact} />
-      
+
       {selectedContact ? (
         <>
           <section className="flex-1 overflow-hidden">
-            <MessageList 
+            <MessageList
               messages={messages}
               userId={userId}
               selectedContactName={selectedContact.username}
@@ -65,8 +65,8 @@ export const ChatArea = ({
               onScrollChange={handleScrollChange}
             />
           </section>
-          <footer>
-            <MessageInput 
+          <footer className="bg-dark-800">
+            <MessageInput
               message={newMessage}
               setMessage={setNewMessage}
               sendMessage={sendMessage}
@@ -82,4 +82,4 @@ export const ChatArea = ({
       )}
     </main>
   );
-}; 
+};

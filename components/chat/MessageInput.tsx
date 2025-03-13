@@ -3,10 +3,7 @@
 import React from "react";
 import { IoArrowDown, IoSend } from "react-icons/io5";
 import { BsEmojiSmile } from "react-icons/bs";
-import {
-  GenerateOutlineIcon,
-  TextFileIcon,
-} from "@/utils/Icons";
+import { GenerateOutlineIcon, TextFileIcon } from "@/utils/Icons";
 import { FiPaperclip } from "react-icons/fi";
 import { FaMicrophone, FaRegClock } from "react-icons/fa6";
 import { AiOutlineHistory } from "react-icons/ai";
@@ -32,21 +29,20 @@ export const MessageInput = ({
   scrollToBottom,
   showScrollButton = false,
 }: MessageInputProps) => {
-  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (message.trim()) {
       sendMessage();
     }
   };
-  
+
   return (
     <>
       {/* Scroll down button - only shown when needed */}
       {showScrollButton && (
         <div className="relative">
           <div className="absolute left-1/2 transform -translate-x-1/2 -top-8 z-10">
-            <button 
+            <button
               onClick={scrollToBottom}
               className="w-9 h-6 rounded-md bg-white shadow-md flex items-center justify-center hover:bg-gray-100 transition-colors duration-200"
               aria-label="Scroll to bottom"
@@ -56,13 +52,16 @@ export const MessageInput = ({
           </div>
         </div>
       )}
-      
+
       {/* Message input container */}
-      <div className="border-t border-gray-200 py-2.5">
-        <form onSubmit={handleSubmit} className="flex items-center px-2 sm:px-4 mx-auto">
+      <div className="border-t border-dark-700 py-2.5 bg-dark-800">
+        <form
+          onSubmit={handleSubmit}
+          className="flex items-center px-2 sm:px-4 mx-auto"
+        >
           <input
             type="text"
-            className="flex-1 py-2 sm:py-2.5 px-3 font-medium sm:px-4 rounded-3xl text-md h-10 focus:outline-none"
+            className="flex-1 py-2 sm:py-2.5 px-3 font-medium sm:px-4 rounded-3xl text-md h-10 focus:outline-none bg-dark-700 text-dark-50 placeholder-dark-300"
             placeholder="Message..."
             value={message}
             onChange={(e) => setMessage(e.target.value)}
@@ -70,7 +69,7 @@ export const MessageInput = ({
           />
           <button
             type="submit"
-            className="ml-2 p-1 text-green-700"
+            className="ml-2 p-1 text-green-500"
             disabled={!message.trim()}
             aria-label="Send message"
           >
@@ -81,42 +80,66 @@ export const MessageInput = ({
         <nav className="flex items-center justify-between px-2 sm:px-4 mt-2 ml-3.5 sm:mt-3 mx-auto">
           <ul className="flex space-x-4 sm:space-x-7 overflow-x-auto pb-1 scrollbar-hide">
             <li>
-              <button className="focus:outline-none flex-shrink-0 cursor-pointer" aria-label="Attach file">
-                <FiPaperclip className="h-4 w-4 text-gray-700" />
+              <button
+                className="focus:outline-none flex-shrink-0 cursor-pointer"
+                aria-label="Attach file"
+              >
+                <FiPaperclip className="h-4 w-4 text-dark-200" />
               </button>
             </li>
             <li>
-              <button className="focus:outline-none flex-shrink-0 cursor-pointer" aria-label="Emoji">
-                <BsEmojiSmile className="h-4 w-4 text-gray-700" />
+              <button
+                className="focus:outline-none flex-shrink-0 cursor-pointer"
+                aria-label="Emoji"
+              >
+                <BsEmojiSmile className="h-4 w-4 text-dark-200" />
               </button>
             </li>
             <li className="hidden sm:block">
-              <button className="focus:outline-none flex-shrink-0 cursor-pointer" aria-label="Schedule message">
-                <FaRegClock className="h-4 w-4 text-gray-700" />
+              <button
+                className="focus:outline-none flex-shrink-0 cursor-pointer"
+                aria-label="Schedule message"
+              >
+                <FaRegClock className="h-4 w-4 text-dark-200" />
               </button>
             </li>
             <li>
-              <button className="focus:outline-none flex-shrink-0 cursor-pointer" aria-label="History">
-                <AiOutlineHistory className="h-4 w-4 text-gray-700" />
+              <button
+                className="focus:outline-none flex-shrink-0 cursor-pointer"
+                aria-label="History"
+              >
+                <AiOutlineHistory className="h-4 w-4 text-dark-200" />
               </button>
             </li>
             <li>
-              <button className="focus:outline-none flex-shrink-0 cursor-pointer" aria-label="Generate">
-                <GenerateOutlineIcon className="h-4 w-4 text-gray-700" />
+              <button
+                className="focus:outline-none flex-shrink-0 cursor-pointer"
+                aria-label="Generate"
+              >
+                <GenerateOutlineIcon className="h-4 w-4 text-dark-200" />
               </button>
             </li>
             <li className="hidden sm:block">
-              <button className="focus:outline-none flex-shrink-0 cursor-pointer" aria-label="Attach document">
-                <TextFileIcon className="h-4 w-4 text-gray-700" />
+              <button
+                className="focus:outline-none flex-shrink-0 cursor-pointer"
+                aria-label="Attach document"
+              >
+                <TextFileIcon className="h-4 w-4 text-dark-200" />
               </button>
             </li>
             <li>
-              <button className="focus:outline-none flex-shrink-0 cursor-pointer" aria-label="Voice message">
-                <FaMicrophone className="h-4 w-4 text-gray-700" />
+              <button
+                className="focus:outline-none flex-shrink-0 cursor-pointer"
+                aria-label="Voice message"
+              >
+                <FaMicrophone className="h-4 w-4 text-dark-200" />
               </button>
             </li>
           </ul>
-          <button className="flex items-center px-1 py-0.5 ml-2 text-black text-sm bg-white border border-gray-300 rounded-md hover:bg-gray-100 transition whitespace-nowrap cursor-pointer" aria-label="User profile">
+          <button
+            className="flex items-center px-1 py-0.5 ml-2 text-dark-50 text-sm bg-dark-700 border border-dark-600 rounded-md hover:bg-dark-600 transition whitespace-nowrap cursor-pointer"
+            aria-label="User profile"
+          >
             {userAvatar ? (
               <Image
                 src={userAvatar}

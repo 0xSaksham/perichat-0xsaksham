@@ -321,11 +321,11 @@ const ChatsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full relative">
+    <div className="flex h-full relative dark:bg-gray-900">
       <div
         className={`${
           !showContactsOnMobile ? "hidden md:block" : "block"
-        } w-full md:w-80 lg:w-96 h-full overflow-hidden`}
+        } w-full md:w-80 lg:w-96 h-full overflow-hidden dark:bg-gray-800`}
       >
         <ContactsList
           contacts={contacts}
@@ -346,15 +346,15 @@ const ChatsPage: React.FC = () => {
       <div
         className={`${
           showContactsOnMobile ? "hidden md:flex" : "flex"
-        } flex-col flex-1 h-full overflow-hidden`}
+        } flex-col flex-1 h-full overflow-hidden dark:bg-gray-900`}
       >
         {selectedContact && (
           <div className="md:hidden absolute top-16 left-3 z-10">
             <button
               onClick={handleBackToContacts}
-              className="p-2 rounded-full bg-white shadow-md"
+              className="p-2 rounded-full bg-white dark:bg-gray-700 shadow-md"
             >
-              <FiArrowLeft className="h-5 w-5 text-gray-600" />
+              <FiArrowLeft className="h-5 w-5 text-gray-600 dark:text-gray-300" />
             </button>
           </div>
         )}
@@ -378,7 +378,7 @@ const ChatsPage: React.FC = () => {
         <div
           className={`${
             showContactsOnMobile ? "hidden md:block" : "block"
-          } h-full overflow-hidden`}
+          } h-full overflow-hidden dark:bg-gray-800`}
         >
           <Rightbar contact={selectedContact} />
         </div>

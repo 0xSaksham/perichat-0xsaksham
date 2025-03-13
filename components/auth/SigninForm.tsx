@@ -45,21 +45,18 @@ export const SigninForm = () => {
   };
 
   return (
-    <div className="w-full max-w-md p-4 sm:p-8 space-y-6 sm:space-y-8 bg-white rounded-lg shadow-md">
+    <div className="w-full max-w-md p-4 sm:p-8 space-y-6 sm:space-y-8 bg-background rounded-lg shadow-md overflow-y-auto max-h-screen sm:max-h-none">
       <div className="text-center">
-        <div className="flex justify-center mb-4">
-          <PeriskopeIcon className="h-16 sm:h-20 w-16 sm:w-20" />
-        </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-green-700">
+        <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
           Welcome Back
         </h1>
-        <p className="mt-2 text-sm sm:text-base text-gray-600">
-          Sign in to your Periskope account
+        <p className="mt-2 text-sm sm:text-base text-muted-foreground">
+          Sign in to your Perichat account
         </p>
       </div>
 
       {error && (
-        <div className="p-3 bg-red-50 text-red-600 rounded-md text-sm">
+        <div className="p-3 bg-destructive/10 text-destructive rounded-md text-sm">
           {error}
         </div>
       )}
@@ -71,7 +68,7 @@ export const SigninForm = () => {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-foreground"
           >
             Email address
           </label>
@@ -82,7 +79,7 @@ export const SigninForm = () => {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-input rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-sm bg-background"
             autoComplete="email"
           />
         </div>
@@ -91,13 +88,13 @@ export const SigninForm = () => {
           <div className="flex items-center justify-between">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-foreground"
             >
               Password
             </label>
             <Link
               href="/auth/forgot-password"
-              className="text-xs font-medium text-green-600 hover:text-green-500"
+              className="text-xs font-medium text-primary hover:text-primary/90"
             >
               Forgot password?
             </Link>
@@ -109,7 +106,7 @@ export const SigninForm = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 text-sm"
+            className="mt-1 block w-full px-3 py-2 border border-input rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-sm bg-background"
             autoComplete="current-password"
           />
         </div>
@@ -133,7 +130,7 @@ export const SigninForm = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>
@@ -141,11 +138,11 @@ export const SigninForm = () => {
       </form>
 
       <div className="text-center mt-4">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-muted-foreground">
           Don't have an account?{" "}
           <Link
             href="/auth/signup"
-            className="font-medium text-green-600 hover:text-green-500"
+            className="font-medium text-primary hover:text-primary/90"
           >
             Sign up
           </Link>
