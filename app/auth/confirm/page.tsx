@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState, Suspense } from "react";
+import { useRouter } from "next/navigation";
 import { createBrowserSupabaseClient } from "@/utils/supabase-client";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
-export default function ConfirmPage() {
+// Create a separate client component to use useSearchParams
+function EmailConfirmationHandler() {
   const router = useRouter();
+  // This is where we're using useSearchParams, but now in a component that will be wrapped in Suspense
   const searchParams = useSearchParams();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -65,28 +67,48 @@ export default function ConfirmPage() {
   }, [router, searchParams]);
 
   return (
+    <div className="w-full max-w-md p-8 space-y-6 bg-card text-card-foreground rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold text-center">
+        {success ? "Email Confirmed!" : "Confirming your email"}
+      </h1>
+      {error ? (
+        <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">
+          {error}
+        </div>
+      ) : success ? (
+        <div className="p-3 text-sm text-green-600 bg-green-600/10 rounded-md">
+          {success}
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Missing import for useSearchParams
+import { useSearchParams } from "next/navigation";
+
+export default function ConfirmPage() {
+  return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background text-foreground px-4">
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      <div className="w-full max-w-md p-8 space-y-6 bg-card text-card-foreground rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center">
-          {success ? "Email Confirmed!" : "Confirming your email"}
-        </h1>
-        {error ? (
-          <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">
-            {error}
+      <Suspense
+        fallback={
+          <div className="w-full max-w-md p-8 space-y-6 bg-card text-card-foreground rounded-lg shadow-md">
+            <h1 className="text-2xl font-bold text-center">Loading...</h1>
+            <div className="flex justify-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
           </div>
-        ) : success ? (
-          <div className="p-3 text-sm text-green-600 bg-green-600/10 rounded-md">
-            {success}
-          </div>
-        ) : (
-          <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-          </div>
-        )}
-      </div>
+        }
+      >
+        <EmailConfirmationHandler />
+      </Suspense>
     </div>
   );
 }
