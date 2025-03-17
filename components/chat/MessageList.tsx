@@ -15,6 +15,7 @@ interface MessageListProps {
   messagesEndRef: RefObject<HTMLDivElement>;
   onMessagesViewed?: (messageIds: string[]) => void;
   onScrollChange?: (isAtBottom: boolean) => void;
+  isAIChat?: boolean;
 }
 
 const formatMessageDate = (dateString: string): string => {
@@ -67,6 +68,7 @@ export const MessageList = ({
   messagesEndRef,
   onMessagesViewed,
   onScrollChange,
+  isAIChat,
 }: MessageListProps) => {
   const [viewedMessages, setViewedMessages] = useState<Set<string>>(new Set());
   const [isAtBottom, setIsAtBottom] = useState(true);

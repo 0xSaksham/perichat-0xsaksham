@@ -9,10 +9,18 @@ import { IoChatbubbleEllipses } from "react-icons/io5";
 import { IoMdNotificationsOff } from "react-icons/io";
 import { BsStars } from "react-icons/bs";
 import { CiBoxList } from "react-icons/ci";
+import { FaRobot } from "react-icons/fa";
 import { ThemeToggle } from "./ThemeToggle";
+import { useRouter } from "next/navigation";
+import { AI_ASSISTANT } from "@/utils/constants";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const handleAIChat = () => {
+    router.push('/ai-chat');
+  };
 
   return (
     <nav className="w-full border-b border-border h-12 flex items-center justify-between px-4 z-50 bg-background">
@@ -33,6 +41,12 @@ const Navbar = () => {
       {/* Right Section - Utility Buttons (Visible on Desktop) */}
       <div className="hidden md:flex items-center space-x-2 flex-nowrap overflow-x-auto pr-1">
         <ThemeToggle />
+        <button
+          onClick={handleAIChat}
+          className="flex items-center px-2.5 py-1 text-black text-sm bg-white border border-gray-300 rounded-md hover:bg-gray-100 transition whitespace-nowrap cursor-pointer"
+        >
+          <FaRobot className="h-4 w-4 mr-1 text-blue-500" /> Chat with AI
+        </button>
         <button className="flex items-center px-2.5 py-1 text-black text-sm bg-white border border-gray-300 rounded-md hover:bg-gray-100 transition whitespace-nowrap cursor-pointer">
           <TbRefreshDot className="h-4 w-4 mr-1 text-black" /> Refresh
         </button>

@@ -9,6 +9,7 @@ export type Database = {
           phone: string | null;
           updated_at: string | null;
           created_at: string;
+          is_ai: boolean;
         };
         Insert: {
           id: string;
@@ -17,6 +18,7 @@ export type Database = {
           phone?: string | null;
           updated_at?: string | null;
           created_at?: string;
+          is_ai?: boolean;
         };
         Update: {
           id?: string;
@@ -24,6 +26,7 @@ export type Database = {
           avatar_url?: string | null;
           phone?: string | null;
           updated_at?: string | null;
+          is_ai?: boolean;
         };
       };
       messages: {
@@ -33,7 +36,8 @@ export type Database = {
           receiver_id: string;
           content: string;
           created_at: string;
-          status: 'sent' | 'received' | 'read';
+          status: "sent" | "received" | "read";
+          is_ai: boolean;
         };
         Insert: {
           id?: string;
@@ -41,7 +45,8 @@ export type Database = {
           receiver_id: string;
           content: string;
           created_at?: string;
-          status?: 'sent' | 'received' | 'read';
+          status?: "sent" | "received" | "read";
+          is_ai?: boolean;
         };
         Update: {
           id?: string;
@@ -49,7 +54,8 @@ export type Database = {
           receiver_id?: string;
           content?: string;
           created_at?: string;
-          status?: 'sent' | 'received' | 'read';
+          status?: "sent" | "received" | "read";
+          is_ai?: boolean;
         };
       };
       contacts: {
@@ -83,4 +89,4 @@ export type Database = {
       [_ in never]: never;
     };
   };
-}; 
+};

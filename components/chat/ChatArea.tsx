@@ -19,6 +19,7 @@ interface ChatAreaProps {
   userPhone?: string;
   messagesEndRef: RefObject<HTMLDivElement>;
   onMessagesViewed?: (messageIds: string[]) => void;
+  isAIChat?: boolean;
 }
 
 export const ChatArea = ({
@@ -34,52 +35,36 @@ export const ChatArea = ({
   messagesEndRef,
   onMessagesViewed,
 }: ChatAreaProps) => {
-  const [isAtBottom, setIsAtBottom] = useState(true);
-
-  // Function to scroll to the bottom of the chat
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // Track when user scrolls away from the bottom
-  const handleScrollChange = (atBottom: boolean) => {
-    setIsAtBottom(atBottom);
-  };
+  const isAIChat = selectedContact?.is_ai ?? false;
 
   return (
-    <main className="flex-1 flex flex-col h-full overflow-hidden bg-dark-800">
-      <ChatHeader selectedContact={selectedContact} />
-
+    <div className="flex flex-col flex-1 bg-dark-800">
+      <ChatHeader selectedContact={selectedContact} isAIChat={isAIChat} />
       {selectedContact ? (
         <>
-          <section className="flex-1 overflow-hidden">
-            <MessageList
-              messages={messages}
-              userId={userId}
-              selectedContactName={selectedContact.username}
-              selectedContactPhone={selectedContact.phone}
-              currentUserName={username}
-              currentUserPhone={userPhone}
-              messagesEndRef={messagesEndRef}
-              onMessagesViewed={onMessagesViewed}
-              onScrollChange={handleScrollChange}
-            />
-          </section>
-          <footer className="bg-dark-800">
-            <MessageInput
-              message={newMessage}
-              setMessage={setNewMessage}
-              sendMessage={sendMessage}
-              userName={username}
-              userAvatar={userAvatar}
-              scrollToBottom={scrollToBottom}
-              showScrollButton={!isAtBottom}
-            />
-          </footer>
+          <MessageList
+            messages={messages}
+            userId={userId}
+            selectedContactName={selectedContact.username}
+            selectedContactPhone={selectedContact.phone}
+            currentUserName={username}
+            currentUserPhone={userPhone}
+            messagesEndRef={messagesEndRef}
+            onMessagesViewed={onMessagesViewed}
+            isAIChat={isAIChat}
+          />
+          <MessageInput
+            message={newMessage}
+            setMessage={setNewMessage}
+            sendMessage={sendMessage}
+            userAvatar={userAvatar}
+            userName={username}
+            isAIChat={isAIChat}
+          />
         </>
       ) : (
         <EmptyChat />
       )}
-    </main>
+    </div>
   );
 };

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { BiCheckDouble } from "react-icons/bi";
-import { FaPhone } from "react-icons/fa6";
+import { FaPhone, FaRobot } from "react-icons/fa6";
 import { IoPersonSharp } from "react-icons/io5";
 import { MdCheck } from "react-icons/md";
 import Image from "next/image";
@@ -25,6 +25,7 @@ interface ContactItemProps {
   userSentState?: UserSentState;
   isActive?: boolean;
   onClick?: () => void;
+  is_ai?: boolean;
 }
 
 export const ContactItem: React.FC<ContactItemProps> = ({
@@ -39,6 +40,7 @@ export const ContactItem: React.FC<ContactItemProps> = ({
   userSentState,
   isActive = false,
   onClick,
+  is_ai,
 }) => {
   return (
     <div
@@ -51,7 +53,9 @@ export const ContactItem: React.FC<ContactItemProps> = ({
       <div className="flex items-center space-x-2 p-2">
         {/* Profile Picture */}
         <div className="relative transform -translate-y-1.5 h-10 w-10 rounded-full flex items-center justify-center bg-gray-200 hover:shadow-md transition-shadow duration-200 ease-in-out">
-          {avatar ? (
+          {is_ai ? (
+            <FaRobot className="h-6 w-6 text-blue-500" />
+          ) : avatar ? (
             <Image
               src={avatar}
               alt="Avatar"

@@ -18,6 +18,8 @@ interface MessageInputProps {
   userName?: string | null;
   scrollToBottom?: () => void;
   showScrollButton?: boolean;
+  isAIChat?: boolean;
+  isProcessing?: boolean;
 }
 
 export const MessageInput = ({
@@ -28,6 +30,8 @@ export const MessageInput = ({
   userName,
   scrollToBottom,
   showScrollButton = false,
+  isAIChat = false,
+  isProcessing = false,
 }: MessageInputProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,99 +66,105 @@ export const MessageInput = ({
           <input
             type="text"
             className="flex-1 py-2 sm:py-2.5 px-3 font-medium sm:px-4 rounded-3xl text-md h-10 focus:outline-none bg-dark-700 text-dark-50 placeholder-dark-300"
-            placeholder="Message..."
+            placeholder={isAIChat ? "Ask me anything..." : "Message..."}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             aria-label="Type a message"
+            disabled={isProcessing}
           />
           <button
             type="submit"
-            className="ml-2 p-1 text-green-500"
-            disabled={!message.trim()}
+            className={`ml-2 p-1 ${
+              message.trim() ? "text-green-500" : "text-gray-500"
+            } ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}`}
+            disabled={!message.trim() || isProcessing}
             aria-label="Send message"
           >
             <IoSend className="h-6 w-6" />
           </button>
         </form>
 
-        <nav className="flex items-center justify-between px-2 sm:px-4 mt-2 ml-3.5 sm:mt-3 mx-auto">
-          <ul className="flex space-x-4 sm:space-x-7 overflow-x-auto pb-1 scrollbar-hide">
-            <li>
-              <button
-                className="focus:outline-none flex-shrink-0 cursor-pointer"
-                aria-label="Attach file"
-              >
-                <FiPaperclip className="h-4 w-4 text-dark-200" />
-              </button>
-            </li>
-            <li>
-              <button
-                className="focus:outline-none flex-shrink-0 cursor-pointer"
-                aria-label="Emoji"
-              >
-                <BsEmojiSmile className="h-4 w-4 text-dark-200" />
-              </button>
-            </li>
-            <li className="hidden sm:block">
-              <button
-                className="focus:outline-none flex-shrink-0 cursor-pointer"
-                aria-label="Schedule message"
-              >
-                <FaRegClock className="h-4 w-4 text-dark-200" />
-              </button>
-            </li>
-            <li>
-              <button
-                className="focus:outline-none flex-shrink-0 cursor-pointer"
-                aria-label="History"
-              >
-                <AiOutlineHistory className="h-4 w-4 text-dark-200" />
-              </button>
-            </li>
-            <li>
-              <button
-                className="focus:outline-none flex-shrink-0 cursor-pointer"
-                aria-label="Generate"
-              >
-                <GenerateOutlineIcon className="h-4 w-4 text-dark-200" />
-              </button>
-            </li>
-            <li className="hidden sm:block">
-              <button
-                className="focus:outline-none flex-shrink-0 cursor-pointer"
-                aria-label="Attach document"
-              >
-                <TextFileIcon className="h-4 w-4 text-dark-200" />
-              </button>
-            </li>
-            <li>
-              <button
-                className="focus:outline-none flex-shrink-0 cursor-pointer"
-                aria-label="Voice message"
-              >
-                <FaMicrophone className="h-4 w-4 text-dark-200" />
-              </button>
-            </li>
-          </ul>
-          <button
-            className="flex items-center px-1 py-0.5 ml-2 text-dark-50 text-sm bg-dark-700 border border-dark-600 rounded-md hover:bg-dark-600 transition whitespace-nowrap cursor-pointer"
-            aria-label="User profile"
-          >
-            {userAvatar ? (
-              <Image
-                src={userAvatar}
-                alt={userName || "User"}
-                width={16}
-                height={16}
-                className="rounded-full mr-2"
-              />
-            ) : (
-              <span className="h-4 w-4 bg-yellow-400 rounded-full mr-2" />
-            )}
-            {userName || "User"}
-            <LuChevronsUpDown className="ml-1 lg:ml-5 h-3 w-3" />
-          </button>
-        </nav>
+        {/* Hide the bottom nav bar for AI chat */}
+        {!isAIChat && (
+          <nav className="flex items-center justify-between px-2 sm:px-4 mt-2 ml-3.5 sm:mt-3 mx-auto">
+            <ul className="flex space-x-4 sm:space-x-7 overflow-x-auto pb-1 scrollbar-hide">
+              <li>
+                <button
+                  className="focus:outline-none flex-shrink-0 cursor-pointer"
+                  aria-label="Attach file"
+                >
+                  <FiPaperclip className="h-4 w-4 text-dark-200" />
+                </button>
+              </li>
+              <li>
+                <button
+                  className="focus:outline-none flex-shrink-0 cursor-pointer"
+                  aria-label="Emoji"
+                >
+                  <BsEmojiSmile className="h-4 w-4 text-dark-200" />
+                </button>
+              </li>
+              <li className="hidden sm:block">
+                <button
+                  className="focus:outline-none flex-shrink-0 cursor-pointer"
+                  aria-label="Schedule message"
+                >
+                  <FaRegClock className="h-4 w-4 text-dark-200" />
+                </button>
+              </li>
+              <li>
+                <button
+                  className="focus:outline-none flex-shrink-0 cursor-pointer"
+                  aria-label="History"
+                >
+                  <AiOutlineHistory className="h-4 w-4 text-dark-200" />
+                </button>
+              </li>
+              <li>
+                <button
+                  className="focus:outline-none flex-shrink-0 cursor-pointer"
+                  aria-label="Generate"
+                >
+                  <GenerateOutlineIcon className="h-4 w-4 text-dark-200" />
+                </button>
+              </li>
+              <li className="hidden sm:block">
+                <button
+                  className="focus:outline-none flex-shrink-0 cursor-pointer"
+                  aria-label="Attach document"
+                >
+                  <TextFileIcon className="h-4 w-4 text-dark-200" />
+                </button>
+              </li>
+              <li>
+                <button
+                  className="focus:outline-none flex-shrink-0 cursor-pointer"
+                  aria-label="Voice message"
+                >
+                  <FaMicrophone className="h-4 w-4 text-dark-200" />
+                </button>
+              </li>
+            </ul>
+            <button
+              className="flex items-center px-1 py-0.5 ml-2 text-dark-50 text-sm bg-dark-700 border border-dark-600 rounded-md hover:bg-dark-600 transition whitespace-nowrap cursor-pointer"
+              aria-label="User profile"
+            >
+              {userAvatar ? (
+                <Image
+                  src={userAvatar}
+                  alt={userName || "User"}
+                  width={16}
+                  height={16}
+                  className="rounded-full mr-2"
+                />
+              ) : (
+                <span className="h-4 w-4 bg-yellow-400 rounded-full mr-2" />
+              )}
+              {userName || "User"}
+              <LuChevronsUpDown className="ml-1 lg:ml-5 h-3 w-3" />
+            </button>
+          </nav>
+        )}
       </div>
     </>
   );
